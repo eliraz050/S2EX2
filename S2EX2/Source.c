@@ -160,15 +160,6 @@ WorkerList* deleteWorstWorker(WorkerList* head) {
 }
 
 
-	while (ptr->next->next) { //general case - last worker
-		ptr = ptr->next;
-	}
-	free(ptr->next->data->Name);
-	free(ptr->next);
-	ptr->next = NULL;
-	return head;
-}
-
 void update_worker(WorkerList* head, float percent) {
 	WorkerList* ptr = head; //create temp ptr to not change head
 	while (ptr) { //change salary to all employes
