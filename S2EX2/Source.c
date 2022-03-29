@@ -123,17 +123,43 @@ WorkerList* addWorker(WorkerList* head, Worker* w) {
 }
 
 WorkerList* deleteWorstWorker(WorkerList* head) {
-	if (!(head->data)) { // case list is empty
+	//empty list
+	if (!(head->data)) {
 		printf("there are no workers in this list");
 		return head;
 	}
 	WorkerList* ptr = head;
-	if (!(ptr->next)) { // case list is one worker
+
+	//only one worker in list
+	if (!(ptr->next)) {
 		free(ptr->data->Name);
 		free(ptr);
 		printf("\nAll employes deleted");
-		return;
+		return head;
 	}
+
+	//if list was reversed and worker with lowest salary is first
+	if (ptr->data->Salary < ptr->next->data->Salary) {
+		head = head->next;
+		free(ptr->data->Name);
+		free(ptr);
+
+		return head;
+	}
+
+	//free last worker in list (with the least salary)
+	while (ptr->next->next) {
+		ptr = ptr->next;
+	}
+
+	free(ptr->next->data->Name);
+	free(ptr->next);
+	ptr->next = NULL;
+
+	return head;
+}
+
+
 	while (ptr->next->next) { //general case - last worker
 		ptr = ptr->next;
 	}
